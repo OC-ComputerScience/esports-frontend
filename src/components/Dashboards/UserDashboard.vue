@@ -1,6 +1,6 @@
 <script setup>
 //import PlayerMetricChartList from "../PlayerMetricChartList.vue";
-import Schedule from "../components/Schedule.vue";
+import Schedule from "../FacilitySchedule.vue";
 </script>
 
 <template>
