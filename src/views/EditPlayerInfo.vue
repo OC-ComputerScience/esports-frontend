@@ -51,9 +51,7 @@ const userInfo = ref({
 const emergencyContacts = ref([]);
 
 // Object to store validation rules and their respective errors
-const rules = reactive({
-  title: { required },
-});
+const rules = reactive({});
 
 const v$ = useVuelidate(rules, userInfo); // setup the vuelidate object
 
@@ -135,8 +133,7 @@ async function updateInfo() {
   const response = await AliasServices.getPrimaryAlias(userId);
 
   if (response.data.length == 0) {
-    UserServices.addAlias(userId, {
-      title: userInfo.value.title,
+    AliasServices.create(userId, {
       gamerTag: userInfo.value.gamerTag,
     });
   } else {
