@@ -10,7 +10,7 @@ export default {
   getPrimaryAlias(userId) {
     return apiClient.get(`alias/${userId}/alias?type=primary`);
   },
-  create(data, userId) {
+  create(userId, data) {
     return apiClient.post("/alias/" + userId + "/alias", data);
   },
   update(userId, aliasId, data) {
