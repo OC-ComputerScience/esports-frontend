@@ -17,6 +17,12 @@ export default {
   deleteForm(id) {
     return apiClient.delete(`/forms/${id}`);
   },
+  addFormVersion(formId, data) {
+    return apiClient.post(`/forms/${formId}/versions`, data);
+  },
+  updateFormVersion(versionId, data) {
+    return apiClient.put(`/forms/version/${versionId}`, data);
+  },
   getFormVersionById(versionId) {
     return apiClient.get(`/forms/version/${versionId}`);
   },
@@ -26,6 +32,10 @@ export default {
   getTestForm() {
     return apiClient.get(`/forms/user/1/testForm/2`);
   },
+  getDirectorSignatureForms() {
+    return apiClient.get("forms/director/signatureReq");
+  },
+
   getSignedForm(userId, versionId) {
     return axios.get(
       `http://localhost/EsportsAPI/forms/user/${userId}/form/${versionId}`,
@@ -35,7 +45,21 @@ export default {
       },
     );
   },
-  getDirectorSignatureForms() {
-    return apiClient.get("forms/director/signatureReq");
+  uploadFormFile(formVersionId, file, onProgressCallback) {
+    var baseurl = "";
+    if (import.meta.env.DEV) {
+      baseurl = "http://localhost/EsportsAPI";
+    } else {
+      baseurl = "/EsportsAPI/";
+    }
+    let formData = new FormData();
+
+    formData.append("file", file[0]);
+    return axios.post(
+      baseurl + `/forms/version/${formVersionId}/upload`,
+      formData,
+      {},
+      onProgressCallback,
+    );
   },
 };
