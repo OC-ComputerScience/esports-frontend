@@ -11,6 +11,13 @@ import Utils from "../config/utils.js";
 
 const user = Utils.getStore("user");
 
+var baseurl = "";
+if (import.meta.env.DEV) {
+  baseurl = "http://localhost/EsportsAPI/staticForms/";
+} else {
+  baseurl = "/EsportsAPI/staticForms/";
+}
+
 const router = useRouter();
 
 const currentPDF = ref("");
@@ -48,11 +55,7 @@ const getForms = async () => {
   });
 
   if (formList.value.length > 0) {
-    currentPDF.value =
-      "http://localhost:3100/Forms/" +
-      formList.value[0].name +
-      "/" +
-      formList.value[0].formVersions[0].source;
+    currentPDF.value = baseurl + formList.value[0].formVersions[0].source;
     currentFormNumber.value = 0;
     currentFormVersion.value = formList.value[0].formVersions[0].id;
   } else {
@@ -78,11 +81,8 @@ const nextForm = () => {
     currentFormNumber.value += 1;
     currentFormVersion.value =
       formList.value[currentFormNumber.value].formVersions[0].id;
-    currentPDF.value =
-      "http://localhost:3100/Forms/" +
-      formList.value[currentFormNumber.value].name +
-      "/" +
-      formList.value[currentFormNumber.value].formVersions[0].source;
+    currentPDF.value = baseurl + formList.value[0].formVersions[0].source;
+
     console.log(currentPDF.value);
 
     formSigned.value = false;
