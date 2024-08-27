@@ -37,13 +37,17 @@ export default {
   },
 
   getSignedForm(userId, versionId) {
-    return axios.get(
-      `http://localhost/EsportsAPI/forms/user/${userId}/form/${versionId}`,
-      {
-        headers: { Authorization: "yes" },
-        responseType: "text",
-      },
-    );
+    var baseurl = "";
+    if (import.meta.env.DEV) {
+      baseurl = "http://localhost/EsportsAPI";
+    } else {
+      baseurl = "/EsportsAPI/";
+    }
+
+    return axios.get(`${baseurl}/forms/user/${userId}/form/${versionId}`, {
+      headers: { Authorization: "yes" },
+      responseType: "text",
+    });
   },
   uploadFormFile(formVersionId, file, onProgressCallback) {
     var baseurl = "";
