@@ -81,7 +81,8 @@ const nextForm = () => {
     currentFormNumber.value += 1;
     currentFormVersion.value =
       formList.value[currentFormNumber.value].formVersions[0].id;
-    currentPDF.value = baseurl + formList.value[0].formVersions[0].source;
+    currentPDF.value =
+      baseurl + formList.value[currentFormNumber.value].formVersions[0].source;
 
     console.log(currentPDF.value);
 
