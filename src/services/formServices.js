@@ -44,13 +44,10 @@ export default {
       baseurl = "/EsportsAPI/";
     }
 
-    return axios.get(
-      `${baseurl}/forms/user/${userId}/form/${versionId}`,
-      {
-        headers: { Authorization: "yes" },
-        responseType: "text",
-      },
-    );
+    return axios.get(`${baseurl}/forms/user/${userId}/form/${versionId}`, {
+      headers: { Authorization: "yes" },
+      responseType: "text",
+    });
   },
   uploadFormFile(formVersionId, file, onProgressCallback) {
     var baseurl = "";
