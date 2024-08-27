@@ -37,8 +37,15 @@ export default {
   },
 
   getSignedForm(userId, versionId) {
+    var baseurl = "";
+    if (import.meta.env.DEV) {
+      baseurl = "http://localhost/EsportsAPI";
+    } else {
+      baseurl = "/EsportsAPI/";
+    }
+
     return axios.get(
-      `http://localhost/EsportsAPI/forms/user/${userId}/form/${versionId}`,
+      `${baseurl}/forms/user/${userId}/form/${versionId}`,
       {
         headers: { Authorization: "yes" },
         responseType: "text",
