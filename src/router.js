@@ -14,6 +14,8 @@ import MaintainTitleMetrics from "./views/maintain/metrics/MaintainTitleMetrics.
 import MaintainMatchData from "./views/maintain/matchData/MaintainMatchData.vue";
 import MaintainMatchParticipants from "./views/maintain/matchParticipants/MaintainMatchParticipants.vue";
 import MaintainPlayerData from "./views/maintain/playerData/MaintainPlayerData.vue";
+import MaintainForms from "./views/maintain/forms/MaintainForms.vue";
+import MaintainFormVersions from "./views/maintain/formVersions/MaintainFormVersions.vue";
 import SignForms from "./views/SignForms.vue";
 import DirectorSignForms from "./views/Admin/directorSignForms.vue";
 
@@ -79,6 +81,12 @@ const router = createRouter({
       props: true,
     },
     {
+      path: "/maintain/forms",
+      name: "maintainForms",
+      component: MaintainForms,
+      props: true,
+    },
+    {
       path: "/maintain/titles/:titleId/metrics",
       name: "maintainTitleMetrics",
       component: MaintainTitleMetrics,
@@ -89,6 +97,12 @@ const router = createRouter({
       name: "maintainMatchData",
       component: MaintainMatchData,
       props: (route) => ({ matchId: Number(route.params.matchId) }),
+    },
+    {
+      path: "/maintain/forms/:formId",
+      name: "maintianFormVersions",
+      component: MaintainFormVersions,
+      props: (route) => ({ formId: Number(route.params.formId) }),
     },
     {
       path: "/maintain/matches/:matchId/participants",

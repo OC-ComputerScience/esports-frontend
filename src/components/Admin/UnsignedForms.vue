@@ -38,7 +38,7 @@ onMounted(async () => {
 <template>
   <v-card v-if="!loading">
     <v-card-title class="bg-primary"> Unsigned Forms </v-card-title>
-    <v-list v-if="directorForms.length > 1">
+    <v-list v-if="directorForms.length > 0">
       <v-list-item
         v-for="currentForm in directorForms"
         :key="currentForm.id"
