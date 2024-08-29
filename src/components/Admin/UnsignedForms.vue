@@ -26,6 +26,7 @@ const getDirectorForms = async () => {
 };
 
 const signForms = (version) => {
+  // ------- CHANGE THIS TO FORM ID ----- //
   router.push({ name: "directorSignForms", params: { formId: version } });
 };
 
@@ -41,8 +42,8 @@ onMounted(async () => {
     <v-list v-if="directorForms.length > 0">
       <v-list-item
         v-for="currentForm in directorForms"
-        :key="currentForm.id"
-        @click="signForms(currentForm.id)"
+        :key="currentForm.formId"
+        @click="signForms(currentForm.formId)"
       >
         <v-chip class="bg-accent mr-4 px-4">
           {{ currentForm.unsignedCount }}
