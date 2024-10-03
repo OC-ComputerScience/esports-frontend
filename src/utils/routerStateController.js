@@ -7,26 +7,28 @@ import UserRoleServices from "../services/userRoleServices.js";
 
 export default class RouterStateController {
   async isAuthenticated() {
-    const userIsAuthenticated = Utils.getStore("userAuthenticated");
     const user = Utils.getStore("user");
 
-    if (!userIsAuthenticated) {
-      if (user !== null && user != undefined) {
-        try {
-          const isValidToken = await AuthServices.validateToken(user);
-          if (isValidToken.data.isValid) {
-            console.log("Valid");
-            Utils.setStore("userAuthenticated", true);
-            await checkAdminPriviledges();
-            return true;
-          }
-          return false;
-        } catch {
-          console.log("Not Auth");
-          return false;
-        }
-      } else return false;
-    } else return true;
+    // If no user is stored, return false
+    if (!user) {
+      Utils.setStore("userAuthenticated", false);
+      return false;
+    }
+
+    try {
+      // Always check if the token is valid, regardless of "userAuthenticated"
+      const isValidToken = await AuthServices.validateToken(user);
+
+      if (isValidToken.data.isValid) {
+        await this.checkAdminPriviledges(); // Ensure privileges are up to date
+        return true;
+      } else { 
+        return false;
+      }
+    } catch (error) {
+      console.log("Token validation failed:", error);
+      return false;
+    }
   }
 
   async hasCompletedQuestionnare() {
