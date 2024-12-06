@@ -9,7 +9,7 @@ const user = Utils.getStore("user");
 
 export const useMenuStore = defineStore("menuState", () => {
   const displayActions = ref(user != null);
-  const currentRoute = ref()
+  const currentRoute = ref();
 
   const initials = computed(() => (user ? user.fName[0] + user.lName[0] : ""));
   const name = computed(() => (user ? `${user.fName} ${user.lName}` : ""));
@@ -17,30 +17,26 @@ export const useMenuStore = defineStore("menuState", () => {
 
   function setupRouteWatcher() {
     const route = useRoute();
-    watchEffect(
-        async () => {
-            const previousRoute = currentRoute.value;
-            const user = Utils.getStore("user");
+    watchEffect(async () => {
+      const previousRoute = currentRoute.value;
+      const user = Utils.getStore("user");
 
-            currentRoute.value = route.fullPath;
-     
-            if(currentRoute.value == "/login" || previousRoute == "/login") {
-                try {
+      currentRoute.value = route.fullPath;
 
-                    const isValidToken = await AuthServices.validateToken(user);
+      if (currentRoute.value == "/login" || previousRoute == "/login") {
+        try {
+          const isValidToken = await AuthServices.validateToken(user);
 
-                    if(isValidToken) {
-                        console.log("Valid Token");
-                        displayActions.value = true
-                    }
-                    
-                } catch {
-                    console.log("Invalid Token")
-                    displayActions.value = false
-                }
-            }
+          if (isValidToken) {
+            console.log("Valid Token");
+            displayActions.value = true;
+          }
+        } catch {
+          console.log("Invalid Token");
+          displayActions.value = false;
         }
-      );
+      }
+    });
   }
 
   return { displayActions, setupRouteWatcher, initials, name, email };

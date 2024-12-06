@@ -22,7 +22,7 @@ export default class RouterStateController {
       if (isValidToken.data.isValid) {
         await checkAdminPriviledges(); // Ensure privileges are up to date
         return true;
-      } else { 
+      } else {
         return false;
       }
     } catch (error) {

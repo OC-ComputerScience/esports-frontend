@@ -14,7 +14,7 @@ import { storeToRefs } from "pinia";
 import { useMenuStore } from "../../stores/menuBarStore";
 
 const store = useMenuStore();
-store.setupRouteWatcher()
+store.setupRouteWatcher();
 const { displayActions } = storeToRefs(store);
 
 const router = useRouter();
