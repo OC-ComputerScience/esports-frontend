@@ -4,9 +4,6 @@ import AuthServices from "../../services/authServices";
 //import UserServices from "../../services/userServices";
 import Utils from "../../config/utils.js";
 import { useRouter } from "vue-router";
-import { useMenuStore } from "../../stores/menuBarStore";
-
-const store = useMenuStore();
 
 const router = useRouter();
 const fName = ref("");
@@ -42,7 +39,6 @@ const handleCredentialResponse = async (response) => {
       fName.value = user.value.fName;
       lName.value = user.value.lName;
 
-      store.setDisplayActions(true);
       //navigateToNextPage();
       router.push({ name: "Dashboard" });
     })
