@@ -20,7 +20,7 @@ export default class RouterStateController {
       const isValidToken = await AuthServices.validateToken(user);
 
       if (isValidToken.data.isValid) {
-        await this.checkAdminPriviledges(); // Ensure privileges are up to date
+        await checkAdminPriviledges(); // Ensure privileges are up to date
         return true;
       } else { 
         return false;

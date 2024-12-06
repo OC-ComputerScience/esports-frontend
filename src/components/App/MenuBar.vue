@@ -14,6 +14,7 @@ import { storeToRefs } from "pinia";
 import { useMenuStore } from "../../stores/menuBarStore";
 
 const store = useMenuStore();
+store.setupRouteWatcher()
 const { displayActions } = storeToRefs(store);
 
 const router = useRouter();
@@ -83,7 +84,6 @@ const logout = () => {
       Utils.removeItem("userHasCompletedQuestionnare");
       Utils.removeItem("userHasSignedForms");
 
-      store.setDisplayActions(false);
       router.push({ name: "login" });
     })
     .catch((error) => {
