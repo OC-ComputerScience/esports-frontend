@@ -4,6 +4,9 @@ export default {
   getAllFormSignatures() {
     return apiClient.get("/formSignatures");
   },
+  getAllForUser() {
+    return apiClient.get("/formSignatures/user/all");
+  },
   getFormSignatureById(id) {
     return apiClient.get(`/formSignatures/${id}`);
   },
