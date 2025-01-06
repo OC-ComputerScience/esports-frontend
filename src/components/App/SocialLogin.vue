@@ -5,6 +5,8 @@ import AuthServices from "../../services/authServices";
 import Utils from "../../config/utils.js";
 import { useRouter } from "vue-router";
 
+const emit = defineEmits(["unauthorized-user"]);
+
 const router = useRouter();
 const fName = ref("");
 const lName = ref("");
@@ -43,7 +45,11 @@ const handleCredentialResponse = async (response) => {
       router.push({ name: "Dashboard" });
     })
     .catch((error) => {
-      console.log("error", error);
+      if (error.response.status == 401) {
+        emit("unauthorized-user");
+      } else {
+        console.log("error", error);
+      }
     });
 };
 

@@ -9,6 +9,7 @@ import InfoRow from "../components/View/InfoRow.vue";
 import TitleServices from "../services/titleServices";
 import UserServices from "../services/userServices";
 import AliasServices from "../services/aliasServices";
+import UserSignedForms from "../components/UserSignedForms.vue";
 
 const userInfoLoaded = ref(false);
 const userInfo = ref({});
@@ -140,10 +141,8 @@ export default {
                   icon-name="mdi-tshirt-crew-outline"
                 />
                 <InfoRow
-                  label="Graduation Date: "
-                  :data="`${
-                    userInfo.expectedGradDate.getMonth() + 1
-                  } / ${userInfo.expectedGradDate.getFullYear()}`"
+                  label="Expected Graduation: "
+                  :data="`${userInfo.expectedGradSemester} ${userInfo.expectedGradYear}`"
                   icon-name="mdi-school-outline"
                 />
               </tbody>
@@ -184,6 +183,9 @@ export default {
           </v-card>
         </v-col>
       </v-row>
+      <v-card class="mt-6">
+        <UserSignedForms />
+      </v-card>
     </v-col>
   </v-container>
 </template>
