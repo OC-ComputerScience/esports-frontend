@@ -177,9 +177,12 @@ function getEmergencyContacts() {
         for (let i = 0; i < response.data.length; i++) {
           addContact(response.data[i]);
         }
-      } else {
-        addContact();
-        addContact();
+      }
+
+      if (response.data.length < 2) {
+        for (let i = response.data.length; i < 2; i++) {
+          addContact();
+        }
       }
     },
   );
