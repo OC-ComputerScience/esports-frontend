@@ -141,10 +141,8 @@ export default {
                   icon-name="mdi-tshirt-crew-outline"
                 />
                 <InfoRow
-                  label="Graduation Date: "
-                  :data="`${
-                    userInfo.expectedGradDate.getMonth() + 1
-                  } / ${userInfo.expectedGradDate.getFullYear()}`"
+                  label="Expected Graduation: "
+                  :data="`${userInfo.expectedGradSemester} ${userInfo.expectedGradYear}`"
                   icon-name="mdi-school-outline"
                 />
               </tbody>
