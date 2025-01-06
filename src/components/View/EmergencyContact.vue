@@ -14,7 +14,8 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "deleteContact"]);
+// eslint-disable-next-line
+const emit = defineEmits(["update:modelValue"]);
 
 const data = ref({});
 
@@ -25,9 +26,6 @@ const rules = reactive({
   relationship: { required },
 });
 
-function emitDelete() {
-  emit("deleteContact");
-}
 const v$ = useVuelidate(rules, props.modelValue); // setup the vuelidate object
 
 onMounted(() => {
@@ -39,10 +37,6 @@ onMounted(() => {
   <div>
     <v-card-title secondary class="d-flex align-center">
       Emergency Contact #{{ props.index + 1 }}
-      <v-container v-if="props.index != 0" class="w-auto justify-right">
-        <v-icon @click="emitDelete"> mdi-trash-can </v-icon>
-        <v-tooltip bottom activator="parent"> Remove Contact </v-tooltip>
-      </v-container>
     </v-card-title>
     <v-text-field
       v-model="data.fName"
@@ -67,7 +61,7 @@ onMounted(() => {
     <v-text-field
       v-model="data.phoneNumber"
       :name="'phoneContact' + props.index"
-      label="Contact Phone #"
+      label="Contact Phone Number"
       class="pa-2"
       :error-messages="v$.phoneNumber.$errors.map((e) => e.$message)"
       @input="v$.phoneNumber.$touch"

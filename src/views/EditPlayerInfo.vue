@@ -8,7 +8,6 @@ import Utils from "../config/utils";
 
 /* Form Components  */
 import EmergencyContact from "../components/View/EmergencyContact.vue";
-import MonthYearPicker from "../components/View/MonthYearPicker.vue";
 import TextField from "../components/FormComponents/TextField.vue";
 import ComboBox from "../components/FormComponents/ComboBox.vue";
 import YesNoRadio from "../components/FormComponents/YesNoRadio.vue";
@@ -25,6 +24,13 @@ const showDialog = ref(false);
 
 const router = useRouter();
 
+const semesters = ref(["Spring", "Fall"]);
+const years = ref(
+  Array.from({ length: 6 }, (_, i) =>
+    (new Date().getFullYear() + i).toString(),
+  ),
+);
+
 // storage for the basic user info
 const userInfo = ref({
   fName: "",
@@ -39,7 +45,8 @@ const userInfo = ref({
   outsidePC: "",
   fullVacc: "",
   classification: "",
-  expectedGradDate: "",
+  expectedGradSemester: "",
+  expectedGradYear: "",
   agreementSigned: "",
   title: "",
   gamerTag: "",
@@ -94,11 +101,11 @@ function addContact(contactInfo) {
 }
 
 // remove a specific object from the emergency contact array
-function removeContact(contact) {
-  emergencyContacts.value = emergencyContacts.value.filter(
-    (current) => current != contact,
-  );
-}
+// function removeContact(contact) {
+//   emergencyContacts.value = emergencyContacts.value.filter(
+//     (current) => current != contact
+//   );
+// }
 
 // send the form data to the backend to update the user's info
 async function updateInfo() {
@@ -172,6 +179,7 @@ function getEmergencyContacts() {
         }
       } else {
         addContact();
+        addContact();
       }
     },
   );
@@ -244,7 +252,7 @@ export default {
 
             <TextField
               v-model="userInfo.phoneNumber"
-              label="Phone #"
+              label="Phone Number"
               :validators="{ required }"
             />
 
@@ -266,17 +274,37 @@ export default {
               :validators="{ required }"
             />
 
-            <title>Expected Graduation Date</title>
-            <MonthYearPicker
-              v-model="userInfo.expectedGradDate"
-              :errors="
-                v$.$errors
-                  .filter(
-                    (e) => e.$property == 'month' || e.$property == 'year',
-                  )
-                  .map((e) => e.$message)
-              "
-            />
+            <p class="ml-2">Expected Graduation Date</p>
+            <v-row>
+              <v-col cols="6">
+                <ComboBox
+                  v-model="userInfo.expectedGradSemester"
+                  :items="semesters"
+                  label="Semester"
+                  :validators="{ required }"
+                />
+                <!-- <v-select
+                  v-model="userInfo.expectedGradSemester"
+                  :items="semesters"
+                  label="Semester"
+                  :validators="{ required }"
+                ></v-select> -->
+              </v-col>
+              <v-col cols="6">
+                <ComboBox
+                  v-model="userInfo.expectedGradYear"
+                  :items="years"
+                  label="Year"
+                  :validators="{ required }"
+                />
+                <!-- <v-select
+                  v-model="userInfo.expectedGradYear"
+                  :items="years"
+                  label="Year"
+                  :validators="{ required }"
+                ></v-select> -->
+              </v-col>
+            </v-row>
 
             <TextField
               v-model="userInfo.gamerTag"
@@ -326,15 +354,14 @@ export default {
               :key="emergencyContacts.indexOf(contact)"
               :index="emergencyContacts.indexOf(contact)"
               :model-value="contact"
-              @delete-contact="removeContact(contact)"
             />
-            <v-btn
+            <!-- <v-btn
               color="secondary"
               class="w-50 mx-auto d-block"
               @click="addContact"
             >
               Add contact
-            </v-btn>
+            </v-btn> -->
           </v-form>
         </v-container>
         <v-container class="w-75 mx-auto text-center">
